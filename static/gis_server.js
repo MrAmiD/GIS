@@ -87,6 +87,16 @@ L.tileLayer('TileGenPerm/{z}/{x}/{y}.png', {
     minZoom: 13
 }).addTo(map);
 
+var pol = L.polygon([[[58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]], [[58.05249, 56.22318],[58.05211, 56.22138],[58.05296, 56.22075], [58.05249, 56.22318]]]).addTo(map);
+
+/*var PolygonData = {"type":"FeatureCollection","features":[
+{"type":"Feature","id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[  [58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]   ]]}},
+{"type":"Feature","id":"02","properties":{"name":"Alaska","density":1.264},"geometry":{"type":"MultiPolygon","coordinates":[[[   [58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]  ]]]}}
+]};
+L.geoJson(PolygonData).addTo(map);
+console.log(PolygonData);
+*/
+
 function get_loc() {
     xmlhttp = new XMLHttpRequest();
     try

@@ -1,0 +1,18 @@
+var PolygonData = {
+    "type":"FeatureCollection",
+    "features":[{"type":"Feature", "id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[[58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]]]}},
+    {"type":"Feature", "id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[[58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]]]}}
+    ]
+};
+
+var PolygonData = {
+    "type":"FeatureCollection",
+    "features":[{"type":"Feature", "id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[[58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]]]}},
+    {"type":"Feature", "id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[[58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]]]}}
+    ]
+};
+
+var PolygonData = {"type":"FeatureCollection","features":[
+{"type":"Feature","id":"01","properties":{"name":"Alabama","density":94.65},"geometry":{"type":"Polygon","coordinates":[[  [58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]   ]]}},
+{"type":"Feature","id":"02","properties":{"name":"Alaska","density":1.264},"geometry":{"type":"MultiPolygon","coordinates":[[[   [58.05465, 56.21698],[58.05408, 56.21618], [58.05373, 56.21683], [58.0537, 56.21764], [58.05423, 56.21822], [58.05465, 56.21698]  ]]]}}
+]};
