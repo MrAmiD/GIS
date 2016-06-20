@@ -4,7 +4,161 @@ var myStyle = {
     "weight": 5,
     "opacity": 0.65
 };
-var map = L.map('map').setView([58.05418,56.22439], 17);
+
+
+var CorPol = [[[58.05472, 56.21368],[58.05476, 56.21471], [58.05186, 56.21373], [58.05238, 56.21282], [58.05472, 56.21368]],
+[[58.05459, 56.2151],[58.05197, 56.21427], [58.05187, 56.21451], [58.05187, 56.21732], [58.05231, 56.21732], [58.05253, 56.21764], [58.05505, 56.21734], [58.05488, 56.2162], [58.05463, 56.21615], [58.05459, 56.2151]],
+[[58.05253, 56.21764], [58.05505, 56.21734], [58.05561, 56.2177], [58.0554, 56.21995], [58.05491, 56.21981], [58.05262, 56.21858], [58.05253, 56.21764]],
+[[58.05539, 56.21996], [58.05488, 56.21981], [58.05262, 56.21858], [58.05238, 56.2186], [58.05238, 56.21839], [58.05183, 56.21851], [58.05182, 56.22251], [58.05517, 56.22235], [58.05539, 56.21996]],
+[[58.05481, 56.22238], [58.05521, 56.22233], [58.05491, 56.22573], [58.05479, 56.22571], [58.05479, 56.22467], [58.05363, 56.22464], [58.05363, 56.2242], [58.05481, 56.22418], [58.0548, 56.22241], [58.05481, 56.22238]],
+[[58.05363, 56.2242], [58.05481, 56.22418], [58.0548, 56.22241], [58.05362, 56.22244], [58.05363, 56.2242]],
+[[58.05182, 56.22253], [58.05362, 56.22243], [58.05356, 56.22585], [58.05345, 56.22613], [58.05266, 56.22613], [58.05224, 56.22642], [58.05183, 56.22529], [58.05182, 56.22253]],
+];
+
+var statesData = {"type":"FeatureCollection","features":[
+{"type":"Feature","id":"01","properties":{"name":"pol1","density":1},"geometry":{"type":"Polygon","coordinates":[[ [56.21368, 58.05472],[56.21471, 58.05476], [56.21373, 58.05186], [56.21282, 58.05238], [56.21368, 58.05472] ]]}},
+{"type":"Feature","id":"02","properties":{"name":"pol2","density":2},"geometry":{"type":"Polygon","coordinates":[[ [56.2151, 58.05459],[56.21427, 58.05197], [56.21451, 58.05187], [56.21732, 58.05187], [56.21732, 58.05231], [56.21764, 58.05253], [56.21734, 58.05505], [56.2162, 58.05488], [56.21615, 58.05463], [56.2151, 58.05459] ]]}},
+{"type":"Feature","id":"03","properties":{"name":"pol3","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.21764, 58.05253], [56.21734, 58.05505], [56.2177, 58.05561], [56.21995, 58.0554], [56.21981, 58.05491], [56.21858, 58.05262], [56.21764, 58.05253]]]}},
+{"type":"Feature","id":"04","properties":{"name":"pol4","density":1},"geometry":{"type":"Polygon","coordinates":[[ [56.21996, 58.05539], [56.21981, 58.05488], [56.21858, 58.05262], [56.2186, 58.05238], [56.21839, 58.05238], [56.21851, 58.05183], [56.22251, 58.05182], [56.22235, 58.05517], [56.21996, 58.05539]]]}},
+{"type":"Feature","id":"05","properties":{"name":"pol5","density":2},"geometry":{"type":"Polygon","coordinates":[[ [56.22238, 58.05481], [56.22233, 58.05521], [56.22573, 58.05491], [56.22571, 58.05479], [56.22467, 58.05479], [56.22464, 58.05363], [56.2242, 58.05363], [56.22418, 58.05481], [56.22241, 58.0548], [56.22238, 58.05481]]]}},
+{"type":"Feature","id":"06","properties":{"name":"pol6","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.2242, 58.05363], [56.22418, 58.05481], [56.22241, 58.0548], [56.22244, 58.05362], [56.2242, 58.05363]]]}},
+{"type":"Feature","id":"07","properties":{"name":"pol7","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.22253, 58.05182], [56.22243, 58.05362], [56.22585, 58.05356], [56.22613, 58.05345], [56.22613, 58.05266], [56.22642, 58.05224], [56.22529, 58.05183], [56.22253, 58.05182]]]}},
+]};
+
+var TileLayer = {
+    //"TileLayer": L.tileLayer('TileGenPerm/{z}/{x}/{y}.png', {maxZoom: 17, minZoom: 13})
+    "TileLayer": L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+			maxZoom: 17,
+            minZoom: 13,
+			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			id: 'mapbox.streets'
+		})
+};
+var MrpLocation = [58.05591, 56.21541];
+var map = L.map('map').setView(MrpLocation, 17);
+
+// control that shows state info on hover
+		var info = L.control({position: 'topright'});
+
+		info.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info');
+			this.update();
+			return this._div;
+		};
+
+		info.update = function (props) {
+			this._div.innerHTML = '<h4>Имя полигона и проходимость</h4>' +  (props ?
+				'<b>' + 'Имя полигона:' + '</b>' + props.name + '<br />' + '<b>'+'Проходимость: '+ '</b>'+ props.density
+				: 'Наведите указатель на полигон');
+		};
+
+		info.addTo(map);
+// get color depending on density value
+function getColor(d) {
+    return d == 3 ? 'green' :
+           d == 2  ? 'yellow' :
+           d == 1  ? 'red' :
+                      '#FFEDA0';
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.density),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+//HighLighting
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+    info.update(layer.feature.properties);
+}
+var geojson = L.geoJson(statesData, {style: style, onEachFeature: onEachFeature});
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+}
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+/*
+var states = {
+    "type":"Feature",
+   "properties": {"party": "dd"},
+   "geometry": {
+       "type": "Polygon",
+       "coordinates": [[
+           [58.05472, 56.21368], [58.05476, 56.21471], [58.05186, 56.21373], [58.05238, 56.21282],
+           [58.05472, 56.21368]
+       ]]
+   }
+};
+console.log(statesData);*/
+//var PolygonsLayer = new L.layerGroup(L.geoJson(statesData))
+var overlays  = {
+    "Polygons": geojson
+};
+
+map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+var legend = L.control({position: 'topright'});
+legend.onAdd = function (map) {
+
+			var div = L.DomUtil.create('div', 'info legend'),
+				grades = [1,2,3],
+				labels = [],
+				from;
+
+			for (var i = 0; i < grades.length; i++) {
+				from = grades[i];
+
+
+				labels.push(
+					'<i style="background:' + getColor(from) + '"></i> ' +
+					from);
+			}
+
+			div.innerHTML = labels.join('<br>');
+			return div;
+		};
+
+		legend.addTo(map);
+
+//L.control.layers(TileLayer).addTo(map);
+/*
+var TileLayer = L.tileLayer('TileGenPerm/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    minZoom: 13
+}).addTo(map);
+*/
+//L.geoJson(statesData).addTo(map);
+L.control.layers(TileLayer, overlays).addTo(map);
+
+
 
 var line_way = L.polyline([
     [3.05569, 56.21787],
@@ -28,8 +182,9 @@ var custom_way = L.polyline([
     //L.geoJson(myLines, {
                     //	style: myStyle
                     //}).addTo(map);
+
 var popup = L.popup();
-var marker = L.marker([-53, -100]).addTo(map);
+var marker = L.marker(MrpLocation).addTo(map);
 get_loc();
 
 L.easyButton( '<span class="star">&neArr;</span>', function(btn, map)
@@ -82,11 +237,6 @@ L.easyButton( '<span class="star">&xopf;</span>', function(btn, map){
   flag = 1;
 }).addTo(map);
 
-L.tileLayer('TileGenPerm/{z}/{x}/{y}.png', {
-    maxZoom: 17,
-    minZoom: 13
-}).addTo(map);
-
 /*var CorPol = [[[58.05472, 56.21368],[58.05476, 56.21471], [58.05186, 56.21373], [58.05238, 56.21282], [58.05472, 56.21368]],
 [[58.05459, 56.2151],[58.05197, 56.21427], [58.05187, 56.21451], [58.05187, 56.21732], [58.05231, 56.21732], [58.05253, 56.21764], [58.05505, 56.21734], [58.05488, 56.2162], [58.05463, 56.21615], [58.05459, 56.2151]],
 [[58.05253, 56.21764], [58.05505, 56.21734], [58.05561, 56.2177], [58.0554, 56.21995], [58.05491, 56.21981], [58.05262, 56.21858], [58.05253, 56.21764]],
@@ -95,39 +245,8 @@ L.tileLayer('TileGenPerm/{z}/{x}/{y}.png', {
 [[58.05363, 56.2242], [58.05481, 56.22418], [58.0548, 56.22241], 58.05362, 56.22244, [58.05363, 56.2242], [58.05363, 56.2242]]
 ];*/
 
-var CorPol = [[[58.05472, 56.21368],[58.05476, 56.21471], [58.05186, 56.21373], [58.05238, 56.21282], [58.05472, 56.21368]],
-[[58.05459, 56.2151],[58.05197, 56.21427], [58.05187, 56.21451], [58.05187, 56.21732], [58.05231, 56.21732], [58.05253, 56.21764], [58.05505, 56.21734], [58.05488, 56.2162], [58.05463, 56.21615], [58.05459, 56.2151]],
-[[58.05253, 56.21764], [58.05505, 56.21734], [58.05561, 56.2177], [58.0554, 56.21995], [58.05491, 56.21981], [58.05262, 56.21858], [58.05253, 56.21764]],
-[[58.05539, 56.21996], [58.05488, 56.21981], [58.05262, 56.21858], [58.05238, 56.2186], [58.05238, 56.21839], [58.05183, 56.21851], [58.05182, 56.22251], [58.05517, 56.22235], [58.05539, 56.21996]],
-[[58.05481, 56.22238], [58.05521, 56.22233], [58.05491, 56.22573], [58.05479, 56.22571], [58.05479, 56.22467], [58.05363, 56.22464], [58.05363, 56.2242], [58.05481, 56.22418], [58.0548, 56.22241], [58.05481, 56.22238]],
-[[58.05363, 56.2242], [58.05481, 56.22418], [58.0548, 56.22241], [58.05362, 56.22244], [58.05363, 56.2242]],
-[[58.05182, 56.22253], [58.05362, 56.22243], [58.05356, 56.22585], [58.05345, 56.22613], [58.05266, 56.22613], [58.05224, 56.22642], [58.05183, 56.22529], [58.05182, 56.22253]],
-];
-
-var statesData = {"type":"FeatureCollection","features":[
-{"type":"Feature","id":"01","properties":{"name":"Alabama","density":1},"geometry":{"type":"Polygon","coordinates":[[ [56.21368, 58.05472],[56.21471, 58.05476], [56.21373, 58.05186], [56.21282, 58.05238], [56.21368, 58.05472] ]]}},
-{"type":"Feature","id":"02","properties":{"name":"Alabama","density":2},"geometry":{"type":"Polygon","coordinates":[[ [56.2151, 58.05459],[56.21427, 58.05197], [56.21451, 58.05187], [56.21732, 58.05187], [56.21732, 58.05231], [56.21764, 58.05253], [56.21734, 58.05505], [56.2162, 58.05488], [56.21615, 58.05463], [56.2151, 58.05459] ]]}},
-{"type":"Feature","id":"03","properties":{"name":"Alabama","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.21764, 58.05253], [56.21734, 58.05505], [56.2177, 58.05561], [56.21995, 58.0554], [56.21981, 58.05491], [56.21858, 58.05262], [56.21764, 58.05253]]]}},
-{"type":"Feature","id":"04","properties":{"name":"Alabama","density":1},"geometry":{"type":"Polygon","coordinates":[[ [56.21996, 58.05539], [56.21981, 58.05488], [56.21858, 58.05262], [56.2186, 58.05238], [56.21839, 58.05238], [56.21851, 58.05183], [56.22251, 58.05182], [56.22235, 58.05517], [56.21996, 58.05539]]]}},
-{"type":"Feature","id":"05","properties":{"name":"Alabama","density":2},"geometry":{"type":"Polygon","coordinates":[[ [56.22238, 58.05481], [56.22233, 58.05521], [56.22573, 58.05491], [56.22571, 58.05479], [56.22467, 58.05479], [56.22464, 58.05363], [56.2242, 58.05363], [56.22418, 58.05481], [56.22241, 58.0548], [56.22238, 58.05481]]]}},
-{"type":"Feature","id":"06","properties":{"name":"Alabama","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.2242, 58.05363], [56.22418, 58.05481], [56.22241, 58.0548], [56.22244, 58.05362], [56.2242, 58.05363]]]}},
-{"type":"Feature","id":"07","properties":{"name":"Alabama","density":3},"geometry":{"type":"Polygon","coordinates":[[ [56.22253, 58.05182], [56.22243, 58.05362], [56.22585, 58.05356], [56.22613, 58.05345], [56.22613, 58.05266], [56.22642, 58.05224], [56.22529, 58.05183], [56.22253, 58.05182]]]}},
-]};
 
 
-var states = {
-    "type":"Feature",
-   "properties": {"party": "dd"},
-   "geometry": {
-       "type": "Polygon",
-       "coordinates": [[
-           [58.05472, 56.21368], [58.05476, 56.21471], [58.05186, 56.21373], [58.05238, 56.21282],
-           [58.05472, 56.21368]
-       ]]
-   }
-};
-console.log(statesData);
-L.geoJson(statesData).addTo(map);
 //L.polygon(CorPol).addTo(map);
 
 /*var PolygonData = {"type":"FeatureCollection","features":[
