@@ -27,8 +27,8 @@ var TileLayer = {
 			id: 'mapbox.streets'
 		})
 };
-var MrpLocation = [58.05591, 56.21541];
-var map = L.map('map').setView(MrpLocation, 17);
+var MrpLocation = [58.05375, 56.22308];
+var map = L.map('map').setView(MrpLocation, 20);
 
 // control that shows state info on hover
 var info = L.control({position: 'topright'});
@@ -61,10 +61,34 @@ function style(feature) {
         opacity: 1,
         color: 'white',
         dashArray: '3',
-        fillOpacity: 0.3
+        fillOpacity: 0.1
     };
 }
 //HighLighting
+// использование Math.round() даст неравномерное распределение!
+function getRandomInt(min, max)
+{
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function ChangePolColor(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        fillColor: getColor(getRandomInt(1, 3)),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.1
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+    info.update(layer.feature.properties);
+}
+
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -343,15 +367,14 @@ function cust_way(){
 }
 
 function onMapClick(e) {
-    popup
+    /*popup
         .setLatLng(e.latlng)
         .setContent("New way point " + e.latlng.toString())
-        .openOn(map);
-        console.log(e);
+        .openOn(map);*/
+    console.log("New way point " + e.latlng.toString());
     cust_way();
     custom_way.addLatLng(e.latlng);
 }
-
 
 
 map.on('click', onMapClick);

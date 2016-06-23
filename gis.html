@@ -68,15 +68,29 @@
     </style>
 	<script>
 
-		function resetHighlight(e) {
-			geojson.resetStyle(e.target);
-			info.update();
+	function resetHighlight(e) {
+		//geojson.resetStyle(e.target);
+		//info.update();
+		var layer = e.target;
+
+		layer.setStyle({
+		weight: 2,
+		opacity: 1,
+		color: 'white',
+		dashArray: '3',
+		fillOpacity: 0.1
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera) {
+			layer.bringToFront();
 		}
+		info.update(layer.feature.properties);
+	}
 		function onEachFeature(feature, layer) {
 			layer.on({
 			mouseover: highlightFeature,
 			mouseout: resetHighlight,
-			click: zoomToFeature
+			click: ChangePolColor, onMapClick
     	});}
 		//var geojson = L.geoJson(statesData, {style: style, onEachFeature: onEachFeature});
 		var geojson = L.geoJson(statesData, {style: style, onEachFeature: onEachFeature});
