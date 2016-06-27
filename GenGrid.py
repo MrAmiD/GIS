@@ -47,14 +47,7 @@ class grid():
             y0 = y00 - 0.5 * math.sqrt(3) * ForeignRadius * 2
             j = j + 1
             i = 0
-        '''
-        f = open('HexGrid.js', 'w')
-        f.write('var CorPol = [')
-        for a in HexGrid:
-            f.write(str(a) + ',\n')
-        f.write('];')
-        f.close()
-        '''
+
         f = open('HexGrid.js', 'w')
         IdPol = 0
         statesData = 'var statesData = {"type":"FeatureCollection","features":['
